@@ -1,58 +1,63 @@
-# OLX Image Downloader
+# 📸 OLX Ad Downloader
 
-A simple, robust Python tool that downloads all high-resolution images from an OLX advertisement. It automatically organizes files into a folder named after the ad and converts everything to JPG format.
+A robust Python tool that automatically downloads high-resolution images and the description from an OLX advertisement.
+
+It organizes files into a clean folder in your `Downloads` directory, named directly from the ad's URL, and optionally converts images to JPG format.
 
 ## 🚀 Features
 
-* **Smart Folder Naming:** Extracts the ad title directly from the URL to name your download folder (e.g., `piekny-laptop-macbook-air`).
-* **Full Resolution:** Automatically removes resizing parameters to download the highest quality images available.
-* **Format Conversion:** specific `WebP` or `PNG` images are automatically converted to standard `.jpg`.
+* **Smart Folder Naming:** Extracts the exact item name from the URL (e.g., creates `macbook-air-2020` instead of random characters).
+* **Description Scraping:** Saves the ad title and full description into a `data.txt` file within the folder.
+* **Full Resolution:** Automatically strips resizing parameters to download the highest quality images available.
+* **Auto-Conversion to JPG:** If the `Pillow` library is installed, it converts WebP/PNG files to standard JPG automatically.
 * **Deep Scan:** Uses a "nuclear" regex method to find images even if OLX tries to hide them or uses lazy loading.
-* **Duplicate Prevention:** Checks for duplicates and skips tiny icons/avatars.
 
-## 📋 Prerequisites
+## 🛠️ Prerequisites & Installation
 
-* Python 3.x installed.
-* An active internet connection.
+You need **Python 3** installed.
 
-## 🛠️ Installation
+### 1. Save the script
+Save the code as `photos.py`.
 
-1.  **Download the script:**
-    Save the code as `photos.py`.
+### 2. Install dependencies
+Open your terminal and run the following command:
 
-2.  **Install dependencies:**
-    Open your terminal/command prompt and run:
+**For macOS (if you see "externally-managed-environment" error):**
+```bash
+pip3 install requests beautifulsoup4 pillow --break-system-packages
+```
 
-    ```bash
-    pip3 install requests pillow
-    ```
+For Windows / Linux:
 
-    **⚠️ Mac User Note:**
-    If you see an error saying "externally-managed-environment", use this command instead:
-    ```bash
-    pip3 install requests pillow --break-system-packages
-    ```
+```bash
+pip install requests beautifulsoup4 pillow
+```
+(Note: The `pillow` library is optional. If you don't install it, the script will still work but won't convert images to JPG).
 
-## 🏃 Usage
+▶️ Usage
+Open your terminal in the folder where `photos.py` is saved.
 
-1.  Open your terminal and navigate to the folder where `photos.py` is saved.
-2.  Run the script:
-    ```bash
-    python3 photos.py
-    ```
-3.  **Paste the OLX Ad URL** when prompted and press Enter.
+Run the script:
+```bash
+python3 photos.py
+```
+Paste the OLX Ad URL when prompted and press Enter.
 
-### Example
-**Input:**
-```text
-Paste OLX Ad URL: [https://www.olx.pl/d/oferta/piekny-laptop-macbook-air-2020-CID99-ID1893gF.html](https://www.olx.pl/d/oferta/piekny-laptop-macbook-air-2020-CID99-ID1893gF.html)
+Example
+Input:
+
+```Plaintext
+Paste OLX Ad URL: [https://www.olx.pl/d/oferta/piekny-rower-szosowy-CID767-IDMn3.html](https://www.olx.pl/d/oferta/piekny-rower-szosowy-CID767-IDMn3.html)
+```
+```Plaintext
 Output:
 
 Plaintext
 
 Connecting to: [https://www.olx.pl/d/oferta/](https://www.olx.pl/d/oferta/)...
-Target Folder: /Users/krzys/Downloads/piekny-laptop-macbook-air-2020
+Target Folder: /Users/YourName/Downloads/piekny-rower-szosowy
 Found 8 potential images.
+Saved description to: data.txt
 
 Starting Download...
 Saved: image_1.webp
@@ -61,16 +66,23 @@ Saved: image_2.webp
 
 --- Converting images to JPG ---
 Converted: image_1.webp -> image_1.jpg
-Converted: image_2.webp -> image_2.jpg
-
-SUCCESS! Images saved to:
-/Users/krzys/Downloads/piekny-laptop-macbook-air-2020
-❓ Troubleshooting
-"ModuleNotFoundError: No module named 'PIL'": You are missing the Pillow library. Run the installation command above again.
-
-"No images found": The ad might be expired, or OLX might be presenting a CAPTCHA. Open the link in a normal browser to verify it works, then try again.
-
-Images are small: The script automatically tries to find the biggest version, but if the original upload was small, it cannot enhance it.
+SUCCESS! Saved in: /Users/YourName/Downloads/piekny-rower-szosowy
 ```
-📝 Disclaimer
-This tool is for educational purposes and personal use only. Please respect OLX's terms of service and robots.txt.
+
+📂 Output Structure
+Inside your Downloads folder, you will find:
+
+```Plaintext
+
+📁 piekny-rower-szosowy/
+├── 📄 data.txt        <-- Ad Title and Description
+├── 🖼️ image_1.jpg     <-- Photo 1
+├── 🖼️ image_2.jpg     <-- Photo 2
+└── ...
+```
+❓ Troubleshooting
+`ModuleNotFoundError`: You haven't installed the required libraries. See the Installation section.
+
+Images look like blank icons: The script downloaded them, but couldn't convert them to JPG (missing Pillow). They are still valid files; you can open them in a browser or install Pillow to fix the icons.
+
+Folder named `olx_download`: The script couldn't parse a clean name from the URL (e.g., the link format was unusual). This is the default fallback.
