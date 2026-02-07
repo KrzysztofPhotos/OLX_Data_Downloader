@@ -49,9 +49,9 @@ Input:
 ```Plaintext
 Paste OLX Ad URL: [https://www.olx.pl/d/oferta/piekny-rower-szosowy-CID767-IDMn3.html](https://www.olx.pl/d/oferta/piekny-rower-szosowy-CID767-IDMn3.html)
 ```
-```Plaintext
-Output:
 
+Output:
+```Plaintext
 Plaintext
 
 Connecting to: [https://www.olx.pl/d/oferta/](https://www.olx.pl/d/oferta/)...
